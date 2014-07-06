@@ -10,32 +10,32 @@ universal append data handler for easier creation.
 
 example: 
     var filename = "test.txt";
-    var append_to_file = append_handler(filename);
+    var append_to_file = append_to_file(filename);
     append_to_file("some string");
 */
-var append_handler = function(filename) {
+var append_to_file = function(filename) {
     return function(data) {
         return function() {
             fs.appendFileSync(filename, data);
         }
     }
 };
-module.exports.append_handler = append_handler;
+module.exports.append_to_file = append_to_file;
 
 /*
 a curried handler to writeFileSync.
 */
-var create_file_handler = function(data) {
+var write_to_file = function(data) {
     return function(filename) {
         return fs.writeFileSync(filename, data);
     }
 };
-module.exports.create_file_handler = create_file_handler;
+module.exports.write_to_file = write_to_file;
 
 /*
 creates the new empty file, replacing any existing files.
 */
-var create_empty_file = create_file_handler('');
+var create_empty_file = write_to_file('');
 module.exports.create_empty_file = create_empty_file;
 
 /*
