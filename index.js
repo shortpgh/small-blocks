@@ -57,6 +57,10 @@ var read_file = function(filename) {
 module.exports.read_file = read_file;
 
 /*
+TODO: can these two functions be converted to an if_true and if_false,
+then use those to build these two functions.
+*/
+/*
 runs the passed function on the file if it exists.
 */
 var if_file = function(func) {
@@ -67,3 +71,26 @@ var if_file = function(func) {
     }
 };
 module.exports.if_file = if_file;
+
+/*
+runs the passed function on the file if it doesn't exists.
+*/
+var if_not_file = function(func) {
+    return function(filename) {
+        if (!fs.existsSync(filename)) {
+            return func(filename);
+        }
+    }
+};
+module.exports.if_not_file = if_not_file;
+
+
+/*
+capitalizes the first letter of every word in the string.
+*/
+var capitalize_each_word = function(str){
+    return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+}
+module.exports.capitalize_each_word = capitalize_each_word;
+
+
